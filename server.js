@@ -3,15 +3,23 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/hello', (request, response) => {
-  response.status(200).send('Hello, Test');
-});
+app.use(cors());
+// app.get('/hello', (request, response) => {
+//   response.status(200).send('Hello, Test');
+// });
 
 app.get('/location', (request, response) => {
-  response.status(200).send('Hello');
+  try{
+    let locationData = require ('./data/geo.json');
+    response.send(locationData);
+  } catch(error) {
+    console.log('There was an error!')
+  }
+  response.status(200).send('locationData');
 });
 
 app.use('*', (request, response) => response.send('Sorry, that route does not exist.'))
