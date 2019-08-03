@@ -29,6 +29,12 @@ app.get('/weather', (request, response) => {
     }
 })
 
+function error(err, response) {
+    console.error(err);
+    if (response) {
+        response.status(500).send("Sorry, Try Again Later");
+    }
+}
 //function to be invoked by the get() 
 
 function getData(locationName) {
